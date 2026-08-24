@@ -15,7 +15,7 @@ Built entirely from core principles without bloated wrapper frameworks (no LangC
 ## 🎥 3-Minute Video Demo & Walkthrough
 
 > 📺 **Watch the Full System Demo & Architecture Walkthrough:**  
-> **[Click Here to Watch the Demo Video](YOUR_VIDEO_URL_HERE)** *(Replace with your Loom / Drive / YouTube link)*
+> **[Click Here to Watch the Demo Video](https://drive.google.com/file/d/1owXoL-kWtcI21HAymvZ41-1L_omA5UPj/view?usp=sharing)** 
 
 ---
 
