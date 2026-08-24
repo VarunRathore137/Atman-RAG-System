@@ -21,17 +21,14 @@ Built entirely from core principles without bloated wrapper frameworks (no LangC
 
 ## 📑 Table of Contents
 
-- [Architecture Overview](#-architecture-overview)
+- [Architecture Overview](#️-architecture-overview)
 - [Key Features](#-key-features)
 - [Corpus & Ingestion Pipeline](#-corpus--ingestion-pipeline)
-- [Two-Stage Retrieval & Confidence Scoring](#-two-stage-retrieval--confidence-scoring)
-- [Two-Layer Safety Guardrails](#-two-layer-safety-guardrails)
-- [Multi-Provider LLM Engine](#-multi-provider-llm-engine)
-- [Streamlit Interactive Web UI](#-streamlit-interactive-web-ui)
 - [Evaluation Benchmark Results](#-evaluation-benchmark-results)
 - [Quickstart Guide](#-quickstart-guide)
 - [Testing & Quality Assurance](#-testing--quality-assurance)
 - [Project Directory Structure](#-project-directory-structure)
+- [Key Design Decisions](#-key-design-decisions)
 
 ---
 
@@ -254,9 +251,7 @@ pytest tests/ -v --no-header
 
 ---
 
-## 💡 Key Design Decisions & Interview Notes
-
-For a complete breakdown of technical trade-offs, architecture decisions, and interview preparation notes across all phases, see [`interview_prep.md`](interview_prep.md).
+## 💡 Key Design Decisions
 
 - **Why no LangChain / LlamaIndex?** Built from scratch to prove deep mastery of vector spaces, cosine distance math, sigmoid logit calibration, and custom cross-encoder reranking mechanics.
 - **Why Two-Stage Retrieval?** Bi-encoders are fast ($O(N)$ dot products) but lack cross-attention between query and document. Cross-encoders provide deep semantic matching but are too slow for full corpora ($O(N)$ full transformer passes). Bi-encoder (retrieve Top-5) + Cross-encoder (rerank Top-5) gives the best of both worlds in $<900\text{ms}$.
