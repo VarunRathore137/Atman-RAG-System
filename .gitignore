@@ -1,0 +1,47 @@
+# Python Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment Variables & Secrets (NEVER COMMIT)
+.env
+*.env
+!.env.example
+
+# Vector Database (Generated locally via python -m src.vector_store.indexer)
+chroma_db/
+
+# Agent & Assistant Metadata
+.agent/
+.agents/
+.claude/
+.gemini/
+.gsd/
+
+# IDE & OS Metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs & Temporary Files
+*.log
+*.tmp
+
+# Personal & Interview Notes
+interview_prep.md
+*interview_prep*

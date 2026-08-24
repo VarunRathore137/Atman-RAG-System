@@ -1,0 +1,148 @@
+from typing import List
+from src.evaluation.models import EvaluationCase
+
+
+BENCHMARK_DATASET: List[EvaluationCase] = [
+    # ── Category 1: In-Domain Direct Factual ─────────────────────────────────
+    EvaluationCase(
+        id="q-01",
+        query="What are the storage capacities and RAID configurations of the CSP-200 and CSP-400 models?",
+        category="direct_factual",
+        expected_docs=["Product_Manual"],
+        expected_facts=["4TB", "16TB", "RAID"],
+        should_abstain=False,
+        description="Verifies direct extraction of hardware models and storage capacity from Product Manual.",
+    ),
+    EvaluationCase(
+        id="q-02",
+        query="What authentication header and token format are required for API requests?",
+        category="direct_factual",
+        expected_docs=["API_Reference"],
+        expected_facts=["Bearer", "Authorization"],
+        should_abstain=False,
+        description="Verifies API header extraction and Bearer token requirement from API Reference.",
+    ),
+    EvaluationCase(
+        id="q-03",
+        query="How much Paid Time Off (PTO) do full-time employees accrue per month according to the leave policy?",
+        category="direct_factual",
+        expected_docs=["Employee_Handbook"],
+        expected_facts=["1.75 days", "PTO"],
+        should_abstain=False,
+        description="Verifies HR policy PTO accrual rate from Employee Handbook.",
+    ),
+    EvaluationCase(
+        id="q-04",
+        query="Within what timeframe must security incidents involving Confidential or Restricted data be notified to clients?",
+        category="direct_factual",
+        expected_docs=["Security_Policy"],
+        expected_facts=["72 hours"],
+        should_abstain=False,
+        description="Verifies incident notification window from Security Policy.",
+    ),
+    EvaluationCase(
+        id="q-05",
+        query="How many days before their first day will a new employee receive laptop shipping confirmation?",
+        category="direct_factual",
+        expected_docs=["Onboarding_Guide"],
+        expected_facts=["5 days"],
+        should_abstain=False,
+        description="Verifies pre-start equipment shipping timeline from Onboarding Guide.",
+    ),
+
+    # ── Category 2: 2D Table & Numeric Reasoning ────────────────────────────
+    EvaluationCase(
+        id="q-06",
+        query="What are the monthly subscription costs and storage limits for Free and Standard tiers?",
+        category="table_reasoning",
+        expected_docs=["Pricing_and_SLA"],
+        expected_facts=["$0", "5 GB", "$12", "100 GB"],
+        should_abstain=False,
+        description="Verifies 2D matrix extraction across subscription pricing columns.",
+    ),
+    EvaluationCase(
+        id="q-07",
+        query="What is the guaranteed SLA uptime percentage for Standard vs Enterprise tiers?",
+        category="table_reasoning",
+        expected_docs=["Pricing_and_SLA"],
+        expected_facts=["99.9%", "99.99%"],
+        should_abstain=False,
+        description="Verifies SLA tiering uptime table extraction from Pricing & SLA document.",
+    ),
+    EvaluationCase(
+        id="q-08",
+        query="At what time does the Nightly backup schedule run according to the Product Manual backup table?",
+        category="table_reasoning",
+        expected_docs=["Product_Manual"],
+        expected_facts=["2:00 AM", "Nightly"],
+        should_abstain=False,
+        description="Verifies scheduled backup timing extraction from Product Manual table.",
+    ),
+
+    # ── Category 3: Multi-Hop Cross-Document Synthesis ───────────────────────
+    EvaluationCase(
+        id="q-09",
+        query="Is two-factor authentication (2FA) required for Free and Standard tiers, or is it mandatory for Enterprise?",
+        category="cross_doc",
+        expected_docs=["FAQ_Support", "Pricing_and_SLA"],
+        expected_facts=["optional", "Free", "Standard", "Enterprise"],
+        should_abstain=False,
+        description="Verifies 2FA policy across subscription tiers.",
+    ),
+    EvaluationCase(
+        id="q-10",
+        query="How long is customer data retained if a user cancels their subscription?",
+        category="cross_doc",
+        expected_docs=["FAQ_Support", "Pricing_and_SLA"],
+        expected_facts=["30 days", "retained"],
+        should_abstain=False,
+        description="Verifies cancellation data retention period.",
+    ),
+    EvaluationCase(
+        id="q-11",
+        query="How can a user reset their password, and for how long is the reset link valid?",
+        category="cross_doc",
+        expected_docs=["FAQ_Support"],
+        expected_facts=["Forgot password", "15 minutes"],
+        should_abstain=False,
+        description="Verifies FAQ password reset procedure and token expiration window.",
+    ),
+
+    # ── Category 4: Out-of-Domain Guardrail Rejection ────────────────────────
+    EvaluationCase(
+        id="q-12",
+        query="What is the authentic Italian recipe and oven temperature for baking chocolate fudge cake?",
+        category="out_of_domain",
+        expected_docs=[],
+        expected_facts=[],
+        should_abstain=True,
+        description="Trap query: Culinary topic unmentioned in corpus. Must trigger Layer 1 abstention.",
+    ),
+    EvaluationCase(
+        id="q-13",
+        query="Who won the Premier League football championship and who was the top goal scorer last season?",
+        category="out_of_domain",
+        expected_docs=[],
+        expected_facts=[],
+        should_abstain=True,
+        description="Trap query: Sports trivia unmentioned in corpus. Must trigger Layer 1 abstention.",
+    ),
+    EvaluationCase(
+        id="q-14",
+        query="What is the 7-day weather forecast, humidity, and rainfall probability for Tokyo, Japan?",
+        category="out_of_domain",
+        expected_docs=[],
+        expected_facts=[],
+        should_abstain=True,
+        description="Trap query: Meteorology topic unmentioned in corpus. Must trigger Layer 1 abstention.",
+    ),
+    EvaluationCase(
+        id="q-15",
+        query="Can you give me a full biography, discography, and Grammy awards list for Taylor Swift?",
+        category="out_of_domain",
+        expected_docs=[],
+        expected_facts=[],
+        should_abstain=True,
+        description="Trap query: Pop culture unmentioned in corpus. Must trigger Layer 1 abstention.",
+    ),
+]
