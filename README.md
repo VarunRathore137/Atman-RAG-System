@@ -74,7 +74,7 @@ flowchart TD
   1. *Candidate Search:* Fast Bi-Encoder dense vector retrieval over ChromaDB.
   2. *Deep Reranking:* Cross-Encoder joint-attention re-scoring (`ms-marco-MiniLM-L-6-v2`) eliminates semantic drift.
 - **Mathematically Calibrated Confidence Scoring:**
-  $$\text{Score} = 0.35 \times (1 - \text{cosine\_distance}) + 0.65 \times \sigma(\text{reranker\_logit})$$
+  $$\text{Score} = 0.35 \times (1 - \text{CosineDistance}) + 0.65 \times \sigma(\text{RerankerLogit})$$
 - **Two-Layer Safety Guardrails:**
   - *Pre-LLM Abstention:* Automatically rejects out-of-domain queries when confidence $< 0.40$ (Zero API cost, $<800\text{ms}$ response).
   - *Post-LLM URL & Provenance Sanitization:* Strips hallucinated URLs (`[URL not in source documentation]`) and enforces citations matching indexed documents.
